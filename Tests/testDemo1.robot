@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation    To Validate Login Form
 Library    SeleniumLibrary
+Test Teardown    Close Browser
 
 *** Variables ***
 ${error_message_on_login}        id:error
@@ -21,8 +22,10 @@ Fill The Login Form
     Input Text    id:username    student1
     Input Password    id:password    Password123
     Click Button    id:submit
+
 wait until error message is displayed
     Wait Until Element Is Visible    ${error_message_on_login}
+
 confirm the error message
     ${result} =    Get Text    ${error_message_on_login}
     Should Be Equal As Strings    ${result}    Your username is invalid!
