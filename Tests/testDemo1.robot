@@ -2,6 +2,9 @@
 Documentation    To Validate Login Form
 Library    SeleniumLibrary
 
+*** Variables ***
+${error_message_on_login}        id:error
+
 *** Test Cases ***
 Validate Unsuccessful Login
     Open The Browser With LoginForm Url
@@ -19,7 +22,7 @@ Fill The Login Form
     Input Password    id:password    Password123
     Click Button    id:submit
 wait until error message is displayed
-    Wait Until Element Is Visible    id:error
+    Wait Until Element Is Visible    ${error_message_on_login}
 confirm the error message
-    ${result} =    Get Text    id:error
+    ${result} =    Get Text    ${error_message_on_login}
     Should Be Equal As Strings    ${result}    Your username is invalid!
