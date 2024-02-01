@@ -10,17 +10,17 @@ ${cart_symbol_visible}    css:.shopping_cart_link
 
 
 *** Test Cases ***
-Validate Unsuccessful Login
-    Open The Browser With LoginForm Url
-    Fill The Login Form    ${username}    ${invalid_password}
-    wait until element located in the page    ${error_message_on_login}
-    confirm the error message
+#Validate Unsuccessful Login
+#    Open The Browser With LoginForm Url
+#    Fill The Login Form    ${username}    ${invalid_password}
+#    wait until element located in the page    ${error_message_on_login}
+#    confirm the error message
 
 Validate on Successful Login
     Open The Browser With LoginForm Url
     Fill The Login Form     ${username}    ${valid_password}
     wait until element located in the page    ${cart_symbol_visible}
-
+    Verify card titles on homepage
 
 *** Keywords ***
 Fill The Login Form
@@ -33,7 +33,14 @@ wait until element located in the page
     [Arguments]    ${element}
     Wait Until Element Is Visible    ${element}
 
-
 confirm the error message
     ${result} =    Get Text    ${error_message_on_login}
     Should Be Equal As Strings    ${result}    Epic sadface: Username and password do not match any user in this service
+
+
+Verify card titles on homepage
+    @{expectedList} =     Create List    Sauce Labs Backpack    Sauce Labs Bike Light    Sauce Labs Bolt T-Shirt    Sauce Labs Fleece Jacket    Sauce Labs Onesie    Test.allTheThings() T-Shirt (Red)
+    ${elements} =    Get Webelements    css:.inventory_item_name
+    FOR    ${element}    IN    @{elements}
+        Log    ${element.text}
+    END
