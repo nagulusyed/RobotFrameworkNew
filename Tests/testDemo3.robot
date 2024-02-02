@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation    To Validate Login Form
 Library    SeleniumLibrary
+Library    Collections
 Test Teardown    close browser sessions
 Resource    resourse.robot
 
@@ -41,6 +42,9 @@ confirm the error message
 Verify card titles on homepage
     @{expectedList} =     Create List    Sauce Labs Backpack    Sauce Labs Bike Light    Sauce Labs Bolt T-Shirt    Sauce Labs Fleece Jacket    Sauce Labs Onesie    Test.allTheThings() T-Shirt (Red)
     ${elements} =    Get Webelements    css:.inventory_item_name
+    @{actualList} =    Create List
     FOR    ${element}    IN    @{elements}
         Log    ${element.text}
+        Append To List    ${actualList}     ${element.text}
     END
+    Lists Should Be Equal    ${expectedList}    ${actualList}
