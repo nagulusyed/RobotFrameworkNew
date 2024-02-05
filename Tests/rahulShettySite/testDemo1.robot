@@ -22,4 +22,5 @@ Fill the login details and select the user option
     Click Button    id:okayBtn
     Wait Until Element Is Not Visible    css:.modal-body
     Select From List By Value    css:select.form-control    teach
+    Select Checkbox    id:terms
     Click Button    id:signInBtn
