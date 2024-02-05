@@ -2,7 +2,7 @@
 Documentation    To Validate Login Form
 Library    SeleniumLibrary
 Library    Collections
-Test Teardown    Close Browser Sessions
+#Test Teardown    Close Browser Sessions
 Resource    resourse.robot
 
 
@@ -23,4 +23,5 @@ Fill the login details and select the user option
     Wait Until Element Is Not Visible    css:.modal-body
     Select From List By Value    css:select.form-control    teach
     Select Checkbox    id:terms
+    Checkbox Should Be Selected    id:terms
     Click Button    id:signInBtn
